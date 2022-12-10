@@ -32,7 +32,9 @@ void parse_command(int socket, const char *c)
     for (int i = 0; i < COMMANDS_COUNT; ++i)
     {
         if (commands[i](p, c) == OK)
+        {
             return;
+        }
     }
 }
 
