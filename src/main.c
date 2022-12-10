@@ -102,8 +102,8 @@ int main(int argc, char *argv[]) {
 
     listen(server_socket, 0);
 
-    pthread_t tid; /* идентификатор потока */
-    pthread_attr_t attr; /* отрибуты потока */
+    pthread_t tid;
+    pthread_attr_t attr;
     pthread_attr_init(&attr);
     pthread_create(&tid, &attr, handle_users, server_socket);
     pthread_join(tid, NULL);
