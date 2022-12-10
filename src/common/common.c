@@ -32,21 +32,21 @@
         *p = value;                                              \
     }
 
-#define print_var_(type)                                                          \
-    void print_var_##type(struct printer out, type *pointer)                                  \
-    {                                                                             \
-        typedef struct                                                            \
-        {                                                                         \
-            const char *dli_fname;                                                \
-            void *dli_fbase;                                                      \
-            const char *dli_sname;                                                \
-            void *dli_saddr;                                                      \
-        } Dl_info;                                                                \
-        Dl_info info;                                                             \
-        dladdr(pointer, &info);                                                   \
+#define print_var_(type)                                                                               \
+    void print_var_##type(struct printer out, type *pointer)                                           \
+    {                                                                                                  \
+        typedef struct                                                                                 \
+        {                                                                                              \
+            const char *dli_fname;                                                                     \
+            void *dli_fbase;                                                                           \
+            const char *dli_sname;                                                                     \
+            void *dli_saddr;                                                                           \
+        } Dl_info;                                                                                     \
+        Dl_info info;                                                                                  \
+        dladdr(pointer, &info);                                                                        \
         char buffer[256];                                                                              \
-        sprintf(buffer, "*%s(%p)=0x"type##HEX_FORMAT"\n", info.dli_sname, info.dli_saddr, *pointer); \
-        out.out(buffer, out.args);                                                                              \
+        sprintf(buffer, "*%s(%p)=0x" type##HEX_FORMAT "\n", info.dli_sname, info.dli_saddr, *pointer); \
+        out.out(buffer, out.args);                                                                     \
     }
 
 dec_to_(u32);
@@ -85,25 +85,31 @@ print_var_(u16);
 
 print_var_(u8);
 
-int is_hex(const char *str) {
+int is_hex(const char *str)
+{
     return str[0] == '0' && str[1] == 'x';
 }
 
-void *get_ptr_by_address(u32 address) {
-    void *ptr = (void *) address;
+void *get_ptr_by_address(u32 address)
+{
+    void *ptr = (void *)address;
     return ptr;
 }
 
-int write_memory(void *pointer, byte *bytes, int bytes_size) {
-    byte *p = (byte *) pointer;
-    for (int i = 0; i < bytes_size; i++) {
+int write_memory(void *pointer, byte *bytes, int bytes_size)
+{
+    byte *p = (byte *)pointer;
+    for (int i = 0; i < bytes_size; i++)
+    {
         p[i] = bytes[i];
     }
     return bytes_size;
 }
 
-void print_function(struct printer out, void *ptr) {
-    typedef struct {
+void print_function(struct printer out, void *ptr)
+{
+    typedef struct
+    {
         const char *dli_fname;
         void *dli_fbase;
         const char *dli_sname;
@@ -117,26 +123,29 @@ void print_function(struct printer out, void *ptr) {
     out.out(buffer, out.args);
 }
 
-void print_var_symbol(struct printer out, const char *symbol) {
-    u32 *p = (u32 *) dlsym(NULL, symbol);
+void print_var_symbol(struct printer out, const char *symbol)
+{
+    u32 *p = (u32 *)dlsym(NULL, symbol);
     print_var_u32(out, p);
 }
 
-
-void print_resolve_symbol(struct printer out, const char *symbol) {
+void print_resolve_symbol(struct printer out, const char *symbol)
+{
     void *p = dlsym(NULL, symbol);
     char buffer[256];
     sprintf(buffer, "symbol '%s' at %p\n", symbol, p);
     out.out(buffer, out.args);
 }
 
-void print_byte_hex(struct printer out, byte b) {
+void print_byte_hex(struct printer out, byte b)
+{
     char buff[256];
     sprintf(buff, "0x%02X", b);
     out.out(buff, out.args);
 }
 
-void print_byte_character(struct printer out, byte b) {
+void print_byte_character(struct printer out, byte b)
+{
     char buffer[256];
 
     sprintf(buffer, "%c", b);

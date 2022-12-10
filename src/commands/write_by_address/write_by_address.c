@@ -1,31 +1,31 @@
 #include "write_by_address.h"
 
-#define handle_(type)                                      \
-    next = strtok_r(NULL, " ", &save);                     \
-                                                           \
-    type *variable;                                        \
-                                                           \
-    if (isdigit(*next))                                    \
-    {                                                      \
-        variable = get_ptr_by_address(parse_##type(next)); \
-    }                                                      \
-    else                                                   \
-    {                                                      \
-        variable = (type *)dlsym(NULL, next);              \
-    }                                                      \
-                                                           \
-    next = strtok_r(NULL, " ", &save);                     \
-    if (strcmp(next, "=") == 0)                            \
-    {                                                      \
-        next = strtok_r(NULL, " ", &save);                 \
-        if (isdigit(*next))                                \
-        {                                                  \
-            type v = parse_##type(next);                   \
-            *variable = v;                                 \
+#define handle_(type)                                         \
+    next = strtok_r(NULL, " ", &save);                        \
+                                                              \
+    type *variable;                                           \
+                                                              \
+    if (isdigit(*next))                                       \
+    {                                                         \
+        variable = get_ptr_by_address(parse_##type(next));    \
+    }                                                         \
+    else                                                      \
+    {                                                         \
+        variable = (type *)dlsym(NULL, next);                 \
+    }                                                         \
+                                                              \
+    next = strtok_r(NULL, " ", &save);                        \
+    if (strcmp(next, "=") == 0)                               \
+    {                                                         \
+        next = strtok_r(NULL, " ", &save);                    \
+        if (isdigit(*next))                                   \
+        {                                                     \
+            type v = parse_##type(next);                      \
+            *variable = v;                                    \
             char buffer[256];                                 \
-            sprintf(buffer, "wrote %d to %p\n", v, variable);                                \
-            out.out(buffer, out.args);                               \
-        }                                                  \
+            sprintf(buffer, "wrote %d to %p\n", v, variable); \
+            out.out(buffer, out.args);                        \
+        }                                                     \
     }
 
 int write_by_address_command(struct printer out, const char *args)

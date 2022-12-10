@@ -16,7 +16,7 @@ int call_command(struct printer out, const char *args)
     char *function_params_buffer = (char *)malloc(strlen(open_bracket));
     function_params_buffer[strlen(open_bracket)] = '\0';
     memcpy(function_params_buffer, open_bracket + 1, strlen(open_bracket) - 2);
-    
+
     int name_len = open_bracket - token;
     char *name = (char *)malloc(name_len + 1);
     memcpy(name, token, name_len);
@@ -24,7 +24,7 @@ int call_command(struct printer out, const char *args)
 
     typedef u32 (*f_ptr)();
     f_ptr fun = (f_ptr)dlsym(NULL, name);
-    if(!fun)
+    if (!fun)
     {
         out.out("cant find that function\n", out.args);
         return ERR;
