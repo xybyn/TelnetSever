@@ -7,7 +7,7 @@ mkdir build
 cd build
 cmake ..
 make
-./TelnetServer 2424
+./TelnetDebugger 2424
 ```
 
 2424 - port of the server
