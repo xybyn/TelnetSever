@@ -4,6 +4,8 @@ How to run server
 
 ```
 sudo apt install gcc-multilib g++-multilib
+https://github.com/xybyn/TelnetSever.git
+cd TelnetSever
 mkdir build 
 cd build
 cmake ..
