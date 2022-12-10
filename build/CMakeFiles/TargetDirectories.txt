@@ -1,0 +1,3 @@
+/mnt/c/Users/nikis/OneDrive/Рабочий стол/TestProject/build/CMakeFiles/TelnetDebugger.dir
+/mnt/c/Users/nikis/OneDrive/Рабочий стол/TestProject/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/nikis/OneDrive/Рабочий стол/TestProject/build/CMakeFiles/rebuild_cache.dir

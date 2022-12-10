@@ -42,15 +42,21 @@ void init_socket(struct sockaddr_in *address_sock, int port) {
 
 void *handle_user(void *socket) {
     while (1) {
-        if (send((int) socket, "> ", 3, 0) < 0)
+        if (send((int) socket, "> ", 3, 0) < 0) {
+            printf("CLIENT DISCONNECTED\n");
             break;
+
+        }
         char data[255];
         for (int i = 0; i < 255; ++i) {
             data[i] = '\0';
         }
         int received_bytes_len = recv((int) socket, data, sizeof(char) * 256, 0);
-        if (received_bytes_len < 0)
+        if (received_bytes_len == 0 ) {
+            printf("CLIENT DISCONNECTED\n");
             break;
+
+        }
         data[strlen(data) - 2] = '\0';
 
         parse_command((int) socket, data);
