@@ -3,6 +3,7 @@
 How to run server
 
 ```
+sudo apt install gcc-multilib g++-multilib
 mkdir build 
 cd build
 cmake ..
